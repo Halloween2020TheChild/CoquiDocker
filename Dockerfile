@@ -1,8 +1,12 @@
 FROM ghcr.io/coqui-ai/tts-cpu
 
-RUN tts --text "Text for TTS"
-
 RUN add-apt-repository ppa:strukturag/libde265;\
  apt-get update;\
- apt-get install -y mpg123 vlc vlc-plugin-pulse mozilla-plugin-vlc
+ apt-get install -y mpg123 vlc 
+ 
+RUN tts --text "Text for TTS" --model_name tts_models/en/vctk/vits
+RUN tts --text "Text for TTS" --model_name tts_models/en/jenny/jenny
+RUN tts --text "Text for TTS" --model_name tts_models/en/ljspeech/tacotron2-DCA
+
+
 
