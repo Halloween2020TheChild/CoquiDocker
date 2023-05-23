@@ -1,14 +1,5 @@
-ARG BASE=nvidia/cuda:11.8.0-base-ubuntu22.04
-FROM ${BASE}
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y --no-install-recommends gcc g++ make python3 python3-dev python3-pip python3-venv python3-wheel espeak-ng libsndfile1-dev && rm -rf /var/lib/apt/lists/*
-RUN pip3 install llvmlite --ignore-installed
+FROM ghcr.io/coqui-ai/tts-cpu
 
-WORKDIR /root
-COPY . /root
-RUN pip3 install torch torchaudio --extra-index-url https://download.pytorch.org/whl/cu118
-RUN rm -rf /root/.cache/pip
-RUN make install
 RUN add-apt-repository ppa:strukturag/libde265;\
  apt-get update;\
  apt-get install -y mpg123 vlc 
@@ -17,5 +8,6 @@ RUN tts --text "Text for TTS" --model_name tts_models/en/vctk/vits  --speaker_id
 RUN tts --text "Text for TTS" --model_name tts_models/en/jenny/jenny
 RUN tts --text "Text for TTS" --model_name tts_models/en/ljspeech/tacotron2-DCA
 
-
+ENTRYPOINT [""]
+CMD [""]
 
